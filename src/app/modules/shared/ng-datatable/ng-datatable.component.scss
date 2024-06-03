@@ -1,0 +1,40 @@
+// .table{
+//     thead{
+//         tr{
+//             th{
+//                 min-width: 150px; 
+//             }
+//         }
+//     }
+//    tbody{
+//     tr{
+//         td{
+//             min-width: 150px;
+//         }
+//     }
+//    }
+// }
+.table{
+    thead{
+        tr{
+            th{
+                background-color: #bbb;
+                /* border: none; */
+                color: #000;
+            }
+        }
+    }
+}
+.table_custem_pagination{
+    display: flex;
+    justify-content: space-between;
+}
+.table_bottom_action{
+    .btn{
+        padding: 2px 8px;
+        cursor: pointer;
+    }
+    .btn+.btn{
+        margin-left: 8px;
+    }
+}

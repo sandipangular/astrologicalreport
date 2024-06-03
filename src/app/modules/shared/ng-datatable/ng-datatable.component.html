@@ -1,0 +1,57 @@
+ <div class="ng-data-table-wrapper">
+    <div class="top-toolbar-wrap" *ngIf="rows?.length !== 0">
+        <div class="left-toolbar">
+            <div class="global-search-box">
+
+            </div>
+            <div class="table-info" *ngIf="totalRows !== 0">
+             Displaying Item : {{first}} - {{last}} of {{totalRows}}
+            </div>
+        </div>
+    </div> 
+    <div class="table-data-wrapper horizontal-scroll" #scrollableDiv  (scroll)="divScroll($event)">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>          
+                        <ng-container *ngFor="let column of columns.slice(0, onPageScrollLoadData); let i=index">
+                            <th>{{column.title}}</th>
+                        </ng-container>
+                    </tr>
+                </thead>
+                <tbody >
+                    <ng-template ngFor let-i="index" let c="row" let-row [ngForOf]="rows | paginate: { itemsPerPage: showItemPerpage, currentPage: p }" *ngIf="rows?.length !== 0">
+                        <tr>
+                            <td *ngFor="let column of columns.slice(0, onPageScrollLoadData)">
+                            <ng-container>
+                                {{column.key}}
+                            </ng-container>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+        <!-- | paginate: { itemsPerPage: {{showItemPerpage}}, currentPage: p } -->
+        <div class="table_custem_pagination">
+            <div class="">
+                <select [(ngModel)]="showItemPerpage" (ngModelChange)="onChangeShowNumber($event)">
+                    <option value="10" selected>10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            <!-- <ul>
+                <li *ngFor="let item of columns | paginate: { itemsPerPage: 10, currentPage: p }">{{ item }}</li>
+            </ul> -->
+        
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>           
+        </div>
+        <div class="d-flex justify-content-end table_bottom_action">
+            <button class="btn btn-secondary" (click)="showLess()" [disabled]="onPageScrollLoadData <= 10">Show Less</button>
+            <button class="btn btn-primary" (click)="showMore()" >Show More</button>
+
+        </div>
+    </div>  
+</div>

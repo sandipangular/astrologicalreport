@@ -1,0 +1,28 @@
+<div class="custem_modal">
+    <div class="modal_header">
+        <h3>Modal Name</h3>
+        <span (click)="closeModal()">X</span>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <form [formGroup]="createmenuForm" (ngSubmit)="onSubmit()">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="menuname" required formControlName="menuname" placeholder="Menu Name">
+                        <label for="menuname">Menu Name</label>
+                        <div class="text-danger" *ngIf="(createmenuForm.get('menuname')?.touched || submitted) && createmenuForm.get('menuname')?.errors?.['required']">
+                            Menu name is required
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                            <button class="btn btn-primary" type="submit" [disabled]="createmenuForm.invalid">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

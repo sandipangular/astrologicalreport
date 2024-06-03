@@ -1,0 +1,24 @@
+.page_layout{
+    padding: 0;
+    margin: 0;
+    background: #ebebeb;
+    .page_container{
+        display: flex;
+        .page_layout_left_section{
+            width: 22%;
+            background-color: #005aa3;
+            padding: 16px;
+        }
+        .page_layout_right_section{
+            width: calc(100%  - 22%);
+            padding: 16px;
+            .page_section_card{
+                background-color: #ffffff;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 16px;
+            }
+        }
+    }
+
+}
