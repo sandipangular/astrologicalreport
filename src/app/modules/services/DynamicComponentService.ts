@@ -35,14 +35,14 @@ export class DynamicComponentService {
   createComponentInFolder(folderName: string, componentName: string) {
     alert(folderName)
     alert(componentName)
-    if (typeof window === 'undefined') {
-      // Server-side code
-      const { execSync } = require('child_process');
-      // Use execSync here
-    } else {
-      // Client-side code
-      console.error('Cannot execute child_process.execSync in the browser environment');
-    }
+    // if (typeof window === 'undefined') {
+    //   // Server-side code
+    //   const { execSync } = require('child_process');
+    //   // Use execSync here
+    // } else {
+    //   // Client-side code
+    //   console.error('Cannot execute child_process.execSync in the browser environment');
+    // }
   }
 
   // async createComponentInFolder(folderName: string, componentName: string) {
