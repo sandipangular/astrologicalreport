@@ -1,0 +1,22 @@
+{
+    "admin":[
+        {
+            "name":"Dashbaord",
+            "link":"dashboard",
+            "icon":"",
+            "subMenu":[],
+            "subMenuOpened":false,
+            "arrow":"",
+            "roles":""
+        },
+        {
+            "name":"Reports",
+            "link":"reports",
+            "icon":"",
+            "subMenu":[],
+            "subMenuOpened":false,
+            "arrow":"",
+            "roles":""
+        }
+    ]
+}

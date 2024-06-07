@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import menuList from '../../../configuration/sideNavMenu.json'
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
@@ -7,13 +7,14 @@ import { Component } from '@angular/core';
 })
 export class SideNavComponent {
   menuList:Array<any>=[
-    {
-      menuname:"Report",
-      icon:"",
-      link:""
-    }
+    // {
+    //   name:"Report",
+    //   icon:"",
+    //   link:""
+    // }
   ]
   constructor(){
     // console.log(this.menuList)
+    this.menuList=menuList['admin'];
   }
 }

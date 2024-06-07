@@ -10,6 +10,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateDyanamicReportComponentComponent } from '../layout/create-dyanamic-report-component/create-dyanamic-report-component.component';
 
 
+
 @NgModule({
     declarations:[NgDatatableComponent, CreateDyanamicReportComponentComponent],
     imports:[
@@ -19,9 +20,10 @@ import { CreateDyanamicReportComponentComponent } from '../layout/create-dyanami
         ReactiveFormsModule,
         NgxPaginationModule,
         FormsModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
     ],
     exports:[NgDatatableComponent],
-    providers:[]
+    providers:[],
+
 })
 export class SharedModule {}

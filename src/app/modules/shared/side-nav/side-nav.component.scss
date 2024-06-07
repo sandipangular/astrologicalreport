@@ -5,8 +5,13 @@
         padding: 0;
         margin: 0;  
         list-style-type: none;
-        background: #fff;
         padding: 8px 16px;
         border-radius: 16px;
+        color: #fff;
+        margin-bottom: 12px;
+        &.activemenu{
+            background: #fff;
+            color: #000;
+        }
     }
 }

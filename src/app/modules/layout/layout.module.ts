@@ -18,6 +18,13 @@ const routes:Routes = [
             data:{
                 title:'Report page'
             }
+           },
+           {
+            path:'dashboard',
+            loadChildren:() => import ('./dashboard/dashboard.module').then(m => m.DashboardModule),
+            data:{
+                title:'Dashboard'
+            }
            }
         ]
     }
