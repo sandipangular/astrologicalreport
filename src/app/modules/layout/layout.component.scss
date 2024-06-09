@@ -4,13 +4,32 @@
     background: #ebebeb;
     .page_container{
         display: flex;
-        .page_layout_left_section{
+        .page_layout_left_section {
             width: 22%;
             background-color: #005aa3;
             padding: 16px;
-        }
+          
+            &.collapsed {
+              width: 100px;
+          
+              @media screen and (max-width: 767px) {
+                width: 80%; 
+                position: relative;
+                z-index: 1;
+              }
+            }
+          }
+          
         .page_layout_right_section{
             width: calc(100%  - 22%);
+            &.collapsed{
+                width: calc(100%  - 100px);
+                @media screen and (max-width:767px){
+                    width: 20%;
+                    padding: 0; 
+                }
+                
+            }
             padding: 16px;
             .page_section_card{
                 background-color: #ffffff;

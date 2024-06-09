@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
-
-import { DynamicComponentService } from '../../services/DynamicComponentService';
+import { LocalStorageService, SharedService } from '../../../core/services/store.service';
 
 @Component({
   selector: 'app-create-dyanamic-report-component',
@@ -11,33 +10,40 @@ import { DynamicComponentService } from '../../services/DynamicComponentService'
   styleUrls: ['./create-dyanamic-report-component.component.scss']
 })
 export class CreateDyanamicReportComponentComponent {
-
   createmenuForm: FormGroup;
   submitted = false;
+  menuItems:any;
+  getLocalStorageArray:any;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private modalService: BsModalService, // Inject BsModalService instead of BsModalRef
-    private dynamicComponentService: DynamicComponentService
+    private sharedService: SharedService
   ) {
     this.createmenuForm = this.formBuilder.group({
       menuname: ['', Validators.required],
     });
   }
-
   onSubmit() {
     this.submitted = true;
-    if (this.createmenuForm.valid) {
-      let componentName = this.createmenuForm.get('menuname')?.value;
-      let folderName = 'modules/layout/reports'; // Corrected folder name
-      this.dynamicComponentService.createComponentInFolder(folderName, componentName);
-    }
+
+    const newItem = {
+      name: this.createmenuForm.get('menuname')?.value,
+      link: "new-item",
+      icon: "",
+      subMenu: [],
+      subMenuOpened: false,
+      arrow: "",
+      roles: ""
+    };
+
+    this.sharedService.setData(newItem);
+    this.modalService.hide();
   }
 
   closeModal() {
-    // Close modal using modal service
-    // This assumes you're opening the modal using modal service elsewhere
     this.modalService.hide();
   }
+ 
 }

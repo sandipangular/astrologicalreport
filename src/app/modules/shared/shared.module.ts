@@ -8,7 +8,7 @@ import { NgDatatableComponent } from './ng-datatable/ng-datatable.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateDyanamicReportComponentComponent } from '../layout/create-dyanamic-report-component/create-dyanamic-report-component.component';
-
+import { LocalStorageService } from '../../core/services/store.service';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { CreateDyanamicReportComponentComponent } from '../layout/create-dyanami
         ModalModule.forRoot(),
     ],
     exports:[NgDatatableComponent],
-    providers:[],
+    providers:[LocalStorageService],
 
 })
 export class SharedModule {}

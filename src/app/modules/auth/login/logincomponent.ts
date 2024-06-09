@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.valid) {
       this.router.navigate(['admin/reports']);
     } else {
-      alert('Form is invalid');
       this.loginForm.markAllAsTouched();
     }
   }

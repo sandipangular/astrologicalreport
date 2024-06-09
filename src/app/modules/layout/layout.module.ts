@@ -38,7 +38,7 @@ const routes:Routes = [
         SharedModule,
         RouterModule.forChild(routes)
     ],
-    exports:[]
+    exports:[],
 })
 
 export class LayoutModule{}

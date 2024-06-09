@@ -1,10 +1,10 @@
 <div class="page_layout">
     <div class="page_container">
-        <div class="page_layout_left_section">
-            <app-side-nav />
+        <div class="page_layout_left_section" [class.collapsed]="isCollapsed" >
+            <app-side-nav  />
         </div>
-        <div class="page_layout_right_section">
-            <app-header />
+        <div class="page_layout_right_section" [class.collapsed]="isCollapsed">
+            <app-header  (valueChanged)="handleValueChange($event)" />
            <div class="page_section_card">
                 <router-outlet />
            </div>

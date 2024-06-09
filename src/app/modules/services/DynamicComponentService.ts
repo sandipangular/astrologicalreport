@@ -33,8 +33,8 @@ export class DynamicComponentService {
   constructor() { }
 
   createComponentInFolder(folderName: string, componentName: string) {
-    alert(folderName)
-    alert(componentName)
+    // alert(folderName)
+    // alert(componentName)
     // if (typeof window === 'undefined') {
     //   // Server-side code
     //   const { execSync } = require('child_process');

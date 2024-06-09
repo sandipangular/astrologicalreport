@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,10 +7,15 @@ import { Router } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  
+  @Output() valueChanged: EventEmitter<any> = new EventEmitter<any>();
+ 
   constructor(private router:Router) { 
   }
-  logout(){
-  
+  logout(){  
     this.router.navigate(['login']);
+  }
+  emitValue(value: any) {
+    this.valueChanged.emit(value);
   }
 }
