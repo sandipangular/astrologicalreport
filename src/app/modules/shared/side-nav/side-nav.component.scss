@@ -9,9 +9,53 @@
         border-radius: 16px;
         color: #fff;
         margin-bottom: 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         &.activemenu{
             background: #fff;
             color: #000;
         }
+        .menu-icon{
+            margin-right: 8px;
+            font-size: 18px;
+            width: 18px;
+            text-align: center;
+        }
+        .menu-name{
+            @media screen and (max-width:767px){
+                
+            }
+        }
     }
 }
+// :host ::ng-deep app-header header ul li .menuCollase {
+//     color: #ffffff;
+//     position: relative;
+//     top: 16px;
+//     right: 37px;
+//     z-index: 9999999;
+//     font-size: 25px;
+//   }
+
+::ng-deep {
+  app-side-nav.collapsed {
+    .sidenav_menu {
+      li {
+        text-align: center;
+        display: block !important;
+        border-radius: 24px !important;
+        .menu-icon{
+          margin-right: 0 !important;
+        }
+        .menu-name {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+
+  
+
+  

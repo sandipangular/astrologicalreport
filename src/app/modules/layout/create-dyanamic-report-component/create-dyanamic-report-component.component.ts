@@ -27,10 +27,10 @@ export class CreateDyanamicReportComponentComponent {
   }
   onSubmit() {
     this.submitted = true;
-
+    
     const newItem = {
       name: this.createmenuForm.get('menuname')?.value,
-      link: "new-item",
+      link: "reports/'"+ this.createmenuForm.get('menuname')?.value +"'",
       icon: "",
       subMenu: [],
       subMenuOpened: false,

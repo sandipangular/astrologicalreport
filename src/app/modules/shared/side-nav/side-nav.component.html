@@ -1,6 +1,7 @@
 <p>side-nav works!</p>
 <ul class="sidenav_menu">
-    <li *ngFor="let menus of menuList; let i = index" [routerLink]="menus.link" routerLinkActive="activemenu">
-        <span >{{menus.name}}</span>
+    <li *ngFor="let menus of menuList; let i = index" class="menu-list" [routerLink]="menus.link" routerLinkActive="activemenu">
+        <span class="menu-icon"><i [ngClass]="menus.icon"></i></span>
+        <span class="menu-name">{{menus.name}}</span>
     </li>
 </ul>

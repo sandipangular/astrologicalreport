@@ -3,7 +3,7 @@
         {
             "name":"Dashbaord",
             "link":"dashboard",
-            "icon":"",
+            "icon":"fas fa-chart-line",
             "subMenu":[],
             "subMenuOpened":false,
             "arrow":"",
@@ -12,7 +12,7 @@
         {
             "name":"Reports",
             "link":"reports",
-            "icon":"",
+            "icon":"fas fa-file",
             "subMenu":[],
             "subMenuOpened":false,
             "arrow":"",

@@ -1,0 +1,13 @@
+<!-- <ul class="breadcrumb">
+    <li>Admin<span class="slash">/</span></li>
+    <li>Reports<span class="slash">/</span></li>
+    <li>Page Name</li>
+</ul> -->
+
+<ol class="breadcrumb">
+    <li *ngFor="let breadcrumb of breadcrumbs$ | async; let last = last" 
+        class="breadcrumb-item" [class.active]="last">
+      <a *ngIf="!last; else lastBreadcrumb" [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+      <ng-template #lastBreadcrumb>{{ breadcrumb.label }}</ng-template>
+    </li>
+  </ol>

@@ -4,13 +4,14 @@
     background: #ebebeb;
     .page_container{
         display: flex;
+        min-height:100vh;
         .page_layout_left_section {
             width: 22%;
             background-color: #005aa3;
             padding: 16px;
           
             &.collapsed {
-              width: 100px;
+              width: 80px;
           
               @media screen and (max-width: 767px) {
                 width: 80%; 
@@ -22,20 +23,19 @@
           
         .page_layout_right_section{
             width: calc(100%  - 22%);
+            position: relative;
             &.collapsed{
-                width: calc(100%  - 100px);
+                width: calc(100%  - 80px);
                 @media screen and (max-width:767px){
                     width: 20%;
                     padding: 0; 
                 }
-                
             }
             padding: 16px;
             .page_section_card{
                 background-color: #ffffff;
                 padding: 16px;
                 border-radius: 8px;
-                margin-top: 16px;
             }
         }
     }
