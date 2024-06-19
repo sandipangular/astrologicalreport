@@ -7,3 +7,7 @@ export interface menuItem{
     arrow?:string,
     roles:string;
 }
+
+export interface inputdigit{
+    digit:number
+}

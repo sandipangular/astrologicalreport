@@ -2,8 +2,23 @@
     <h1>Report Module</h1>
     <button class="btn btn-primary" (click)="createNewcompoent()">Create New Report</button>
 </div>
-<app-ng-datatable 
-[columns]="column"
-[rows]="data"
-[totalRows]="totalRows"
-></app-ng-datatable>
+<form [formGroup]="processInputForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="form-floating mb-3">
+                <input type="text" id="input_digit" formControlName="input_digit" required class="form-control" [ngClass]="{'is-invalid': f['input_digit'].errors && (f['input_digit'].dirty || f['input_digit'].touched)}">                
+                <label for="input_digit">Input Digit</label>
+                <div *ngIf="f['input_digit'].errors && (f['input_digit'].dirty || f['input_digit'].touched)" class="invalid-feedback">
+                    <div *ngIf="f['input_digit'].errors['required']">Input digit is required.</div>
+                    <div *ngIf="f['input_digit'].errors['minlength']">Input digit must be at least 2 characters long.</div>
+                    <div *ngIf="f['input_digit'].errors['pattern']">Input digit must be a number.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+
+</form>
+<app-ng-datatable [columns]="column" [rows]="data" [totalRows]="totalRows"></app-ng-datatable>
