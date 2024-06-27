@@ -1,0 +1,10 @@
+{
+    "/api": {
+      "target": "http://ec2-43-205-13-35.ap-south-1.compute.amazonaws.com:8686",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }

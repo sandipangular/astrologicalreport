@@ -2,9 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { CreateDyanamicReportComponentComponent } from '../../layout/create-dyanamic-report-component/create-dyanamic-report-component.component';
-import {BsModalRef, BsModalService,ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { environment } from '../../../../environment/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../../services/ApiService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { inputdigit } from '../../../core/interface/sideNavMenu';
@@ -12,18 +12,17 @@ import { inputdigit } from '../../../core/interface/sideNavMenu';
 @Component({
   selector: 'app-login',
   templateUrl: './reports.component.html',
-  styleUrl: './reports.component.scss'
+  styleUrl: './reports.component.scss',
 })
-
 export class ReportsComponent implements OnInit {
   @ViewChild('inputDigit') inputDigit?: ElementRef;
   processInputForm!: FormGroup;
 
   reportId: string | null = null;
   title = 'smartreport';
-  totalRows:number = 0;
-  tabledatacollection:Array<any>=[];
-  columnDataCollection:Array<any>=[];
+  totalRows: number = 0;
+  tabledatacollection: Array<any> = [];
+  columnDataCollection: Array<any> = [];
 
   // column: Array<any> = [
   //   {
@@ -45,150 +44,146 @@ export class ReportsComponent implements OnInit {
   //   "firstname":"sandip",
   //   "lastname":"gavali"
   // }]
-  column=this.columnDataCollection;
-  data=this.tabledatacollection;
-  submitted:boolean=false;
+  column = this.columnDataCollection;
+  data = this.tabledatacollection;
+  submitted: boolean = false;
 
-
- 
-  
   constructor(
-    private modalService:BsModalService,
+    private modalService: BsModalService,
     private route: ActivatedRoute,
     private http: HttpClient,
     private apiService: ApiService,
     private fb: FormBuilder
-  ){
-   this.getData();
-  }
-
+  ) {}
 
   ngOnInit(): void {
     this.processInputForm = this.fb.group({
-      input_digit: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^\d+$/)]]
+      input_digit: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern(/^\d+$/),
+        ],
+      ],
     });
 
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.reportId = params.get('pagename');
-      // Now you can use this.reportId to fetch data or perform other operations
     });
 
-   this.totalRows = this.getArrayLength();
-   this.tabledatafun();
-   this.tableColumnfunc();
+    this.totalRows = this.getArrayLength();
 
-  //  console.log(this.columnDataCollection);
+    //  console.log(this.columnDataCollection);
   }
   get f() {
     return this.processInputForm.controls;
   }
   onSubmit(): void {
-    debugger;
     if (this.processInputForm.valid) {
       const input_digit = this.processInputForm.get('input_digit')?.value;
+      const url = `http://ec2-43-205-13-35.ap-south-1.compute.amazonaws.com:8686/process-input?input_digit=${input_digit}`;
 
-      this.apiService.getData(input_digit).subscribe(
-        (response: any) => {
-          console.log('Request successful', response);
+      const headers = new HttpHeaders({
+        Authorization: 'sr-asdfghjksdfghjkwertyuiozxcvbndfgh',
+        'Content-Type': 'application/json',
+      });
+      this.http.post(url, null, { headers }).subscribe(
+        (res: any) => {
+          console.log('API result', res);
+          this.tabledatafun(res);
+          this.tableColumnfunc(res);
         },
-        (error: any) => {
-          console.error('Request failed', error);
+        (error) => {
+          console.error('API call error', error);
         }
       );
     } else {
       console.error('Form is invalid');
     }
   }
-  // onSubmit(): void {
-  //   debugger;
-  //   this.submitted=true;
-  //   if (this.processInputForm.valid) {
-      
-  //   }
-    // if (this.processInputForm.valid) {  // Check form validity before proceeding
-    //   var getValue = this.processInputForm.get('input_digit')!.value;
-    //   //const formData:any = `input_digit`+ getValue  // Append form control value to FormData
 
-    //   let formData1 = {
-    //     'input_digit': getValue
-    //   }; 
-
-    //   this.apiService.getData(formData1).subscribe(
-    //     response => {
-    //       console.log('Request successful', response);
-    //     },
-    //     error => {
-    //       console.error('Request failed', error);
-    //     }
-    //   );
-    // } else {
-    //   console.error('Form is invalid');
-    // }
-
-
-
-    // let formData="";
-    // formData.append('input_digit', this.form.get('input_digit')!.value);  // Use non-null assertion operator
-
-    // this.apiService.getData(formData).subscribe(
-    //   response => {
-    //     console.log('Request successful', response);
-    //   },
-    //   error => {
-    //     console.error('Request failed', error);
-    //   }
-    // );
-  //}
-
-  getData() {
-    // this.apiService.getData().subscribe(
-    //   response => {
-    //     console.log('Data received:', response);
-    //   },
-    //   error => {
-    //     console.error('Error:', error);
-    //   }
-    // );
-  }
-  
-  tableColumnfunc(){    
-    for (let i = 1; i <= 10000; i++) {
+  tableColumnfunc(res: any) {
+    let resArray = res.all_results;
+    let flattenedArray = resArray.reduce(
+      (acc: any[], val: any[]) => acc.concat(val),
+      []
+    );
+    for (let i = 0; i < flattenedArray.length; i++) {
       this.columnDataCollection.push({
-        'title':`id ${i}`,
-        'key':`firstname ${i}`,
+        title: `Column ${i + 1}`,
+        key: flattenedArray[i],
+      });
+
+      // Add the first extra column
+      this.columnDataCollection.push({
+        title: `Column ${i + 1}`,
+        key: flattenedArray[i], // Adjust key as needed
+      });
+
+      // Add the second extra column
+      this.columnDataCollection.push({
+        title: `Column ${i + 1}`,
+        key: flattenedArray[i], // Adjust key as needed
       });
     }
   }
-  tabledatafun(){
-    let rowCount:any="";
-    if(this.reportId==null || this.reportId==undefined || this.reportId==""){
-      rowCount=1000;
-    }
-    else{
-      rowCount=1;
-    }
-    for (let i = 1; i <= rowCount; i++) {
+  tabledatafun(res: any) {
+    let resArray = res.all_results;
+    let flattenedArray = resArray.reduce(
+      (acc: any[], val: any[]) => acc.concat(val),
+      []
+    );
+    for (let i = 0; i < flattenedArray.length; i++) {
       this.tabledatacollection.push({
-        'title':`id ${i}`,
-        'firstname':`First Name ${i}`,
+        title: flattenedArray[i],
+        firstname: flattenedArray[i],
+      });
+
+      // Add the first extra column
+      this.tabledatacollection.push({
+        title: flattenedArray[i],
+        key: flattenedArray[i], // Adjust key as needed
+      });
+
+      // Add the second extra column
+      this.tabledatacollection.push({
+        title: flattenedArray[i],
+        key: flattenedArray[i], // Adjust key as needed
       });
     }
+    // console.log(this.columnDataCollection);
+
+    // let rowCount:any="";
+    // if(this.reportId==null || this.reportId==undefined || this.reportId==""){
+    //   rowCount=1000;
+    // }
+    // else{
+    //   rowCount=1;
+    // }
+    // for (let i = 1; i <= rowCount; i++) {
+    //   this.tabledatacollection.push({
+    //     'title':`id ${i}`,
+    //     'firstname':`First Name ${i}`,
+    //   });
+    // }
   }
   getArrayLength(): number {
     return this.data.length;
   }
-  createNewcompoent(){
-    const intiDetails={
-      title:"add New Page",
-      isEdit:false
-    }
-      let newcomponentRef:BsModalRef= this.modalService.show(CreateDyanamicReportComponentComponent,
+  createNewcompoent() {
+    const intiDetails = {
+      title: 'add New Page',
+      isEdit: false,
+    };
+    let newcomponentRef: BsModalRef = this.modalService.show(
+      CreateDyanamicReportComponentComponent,
       {
-        class:'modal-md',
-        ignoreBackdropClick:true,
-        keyboard:false,
+        class: 'modal-md',
+        ignoreBackdropClick: true,
+        keyboard: false,
         //initialState:intiDetails
-      });
-
+      }
+    );
   }
 }
