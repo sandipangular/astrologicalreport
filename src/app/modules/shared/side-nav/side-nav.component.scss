@@ -38,21 +38,47 @@
 //     font-size: 25px;
 //   }
 
-::ng-deep {
-  app-side-nav.collapsed {
-    .sidenav_menu {
-      li {
-        text-align: center;
-        display: block !important;
-        border-radius: 24px !important;
-        .menu-icon{
-          margin-right: 0 !important;
+@media screen and (max-width:767px){
+  ::ng-deep {
+    app-side-nav {
+      .sidenav_menu {
+        li {
+          text-align: center;
+          display: flex !important;
+          border-radius: 24px !important;
+          .menu-icon{
+            margin-right: 0 !important;
+          }
+          .menu-name {
+            display: none !important;
+          }
         }
-        .menu-name {
-          display: none !important;
+      }
+      &.collapsed{
+        .sidenav_menu {
+          li {
+            .menu-name {
+              display: block !important;
+            }
+          }
         }
       }
     }
+    // app-side-nav.collapsed {
+    //   .sidenav_menu {
+    //     li {
+    //       text-align: center;
+    //       display: block !important;
+    //       border-radius: 24px !important;
+    //       .menu-icon{
+    //         margin-right: 0 !important;
+    //       }
+    //       .menu-name {
+    //         display: none !important;
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
 
