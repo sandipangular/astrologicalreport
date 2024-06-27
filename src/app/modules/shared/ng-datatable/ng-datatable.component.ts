@@ -46,7 +46,6 @@ export class NgDatatableComponent implements OnInit {
 }
 
 showMore() {
-  debugger;
     this.onPageScrollLoadData += 100; // Increase the limit by 10 when the button is clicked
 }
   

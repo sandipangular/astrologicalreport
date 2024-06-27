@@ -111,20 +111,20 @@ export class ReportsComponent implements OnInit {
     );
     for (let i = 0; i < flattenedArray.length; i++) {
       this.columnDataCollection.push({
-        title: `Column ${i + 1}`,
+        title: `${i + 1}`,
         key: flattenedArray[i],
       });
 
       // Add the first extra column
       this.columnDataCollection.push({
-        title: `Column ${i + 1}`,
-        key: flattenedArray[i], // Adjust key as needed
+        title: `${i + 1}`,
+        key: '', // Adjust key as needed
       });
 
       // Add the second extra column
       this.columnDataCollection.push({
-        title: `Column ${i + 1}`,
-        key: flattenedArray[i], // Adjust key as needed
+        title: `${i + 1}`,
+        key: '', // Adjust key as needed
       });
     }
   }
@@ -143,13 +143,13 @@ export class ReportsComponent implements OnInit {
       // Add the first extra column
       this.tabledatacollection.push({
         title: flattenedArray[i],
-        key: flattenedArray[i], // Adjust key as needed
+        key: '', // Adjust key as needed
       });
 
       // Add the second extra column
       this.tabledatacollection.push({
         title: flattenedArray[i],
-        key: flattenedArray[i], // Adjust key as needed
+        key: '', // Adjust key as needed
       });
     }
     // console.log(this.columnDataCollection);
