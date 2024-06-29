@@ -23,6 +23,7 @@ export class ReportsComponent implements OnInit {
   totalRows: number = 0;
   tabledatacollection: Array<any> = [];
   columnDataCollection: Array<any> = [];
+  inputValueArray:Array<any>=[];
 
   // column: Array<any> = [
   //   {
@@ -47,6 +48,7 @@ export class ReportsComponent implements OnInit {
   column = this.columnDataCollection;
   data = this.tabledatacollection;
   submitted: boolean = false;
+  inputValue=this.inputValueArray;
 
   constructor(
     private modalService: BsModalService,
@@ -93,6 +95,8 @@ export class ReportsComponent implements OnInit {
           console.log('API result', res);
           this.tabledatafun(res);
           this.tableColumnfunc(res);
+          this.inputValuefunction(input_digit)
+          this.processInputForm.get('input_digit')?.reset();
         },
         (error) => {
           console.error('API call error', error);
@@ -102,8 +106,11 @@ export class ReportsComponent implements OnInit {
       console.error('Form is invalid');
     }
   }
+  inputValuefunction(input_digit:any){
+    this.inputValueArray.push(input_digit);
+  }
 
-  tableColumnfunc(res: any) {
+  tableColumnfunc(res:any){
     let resArray = res.all_results;
     let flattenedArray = resArray.reduce(
       (acc: any[], val: any[]) => acc.concat(val),
@@ -118,57 +125,49 @@ export class ReportsComponent implements OnInit {
       // Add the first extra column
       this.columnDataCollection.push({
         title: `${i + 1}`,
-        key: '', // Adjust key as needed
+        key: 'code1', // Adjust key as needed
       });
 
       // Add the second extra column
       this.columnDataCollection.push({
         title: `${i + 1}`,
-        key: '', // Adjust key as needed
+        key: 'code2', // Adjust key as needed
       });
     }
   }
-  tabledatafun(res: any) {
+
+
+  tabledatafun(res:any){
+    var getSingleArray:Array<any>=[];
     let resArray = res.all_results;
     let flattenedArray = resArray.reduce(
       (acc: any[], val: any[]) => acc.concat(val),
       []
-    );
+    );   
+    
     for (let i = 0; i < flattenedArray.length; i++) {
-      this.tabledatacollection.push({
-        title: flattenedArray[i],
-        firstname: flattenedArray[i],
+      getSingleArray.push({
+        title: `id ${i + 1}`,
+        key:flattenedArray[i]
       });
-
-      // Add the first extra column
-      this.tabledatacollection.push({
-        title: flattenedArray[i],
-        key: '', // Adjust key as needed
+      getSingleArray.push({
+        title: `id ${i + 2}`,
+        key:''
       });
-
-      // Add the second extra column
-      this.tabledatacollection.push({
-        title: flattenedArray[i],
-        key: '', // Adjust key as needed
+      getSingleArray.push({
+        title: `id ${i + 3}`,
+        key:''
       });
     }
-    // console.log(this.columnDataCollection);
-
-    // let rowCount:any="";
-    // if(this.reportId==null || this.reportId==undefined || this.reportId==""){
-    //   rowCount=1000;
-    // }
-    // else{
-    //   rowCount=1;
-    // }
-    // for (let i = 1; i <= rowCount; i++) {
-    //   this.tabledatacollection.push({
-    //     'title':`id ${i}`,
-    //     'firstname':`First Name ${i}`,
-    //   });
-    // }
+    let flattenedArray1 = getSingleArray.reduce(
+      (acc: any[], val: any[]) => acc.concat(val),
+      []
+    );  
+    // console.log("data signle Array", flattenedArray1);
+    this.tabledatacollection.push(flattenedArray1);
   }
-  getArrayLength(): number {
+
+  getArrayLength(): number {   
     return this.data.length;
   }
   createNewcompoent() {

@@ -13,7 +13,8 @@
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
-                    <tr>          
+                    <tr>     
+                        <!-- <th>Input No.</th>      -->
                         <ng-container *ngFor="let column of columns.slice(0, onPageScrollLoadData); let i=index">
                             <th>{{column.title}}</th>
                         </ng-container>
@@ -22,10 +23,11 @@
                 <tbody >
                     <ng-template ngFor let-i="index" let c="row" let-row [ngForOf]="rows | paginate: { itemsPerPage: showItemPerpage, currentPage: p }" *ngIf="rows?.length !== 0">
                         <tr>
-                            <td *ngFor="let column of columns.slice(0, onPageScrollLoadData)">
-                            <ng-container>
-                                {{column.key}}
-                            </ng-container>
+                            <!-- <td *ngFor="let value of inputDigit">{{value}}</td> -->
+                            <td *ngFor="let column of row.slice(0, onPageScrollLoadData)">
+                                <ng-container>
+                                  {{ column.key }}
+                                </ng-container>
                             </td>
                         </tr>
                     </ng-template>

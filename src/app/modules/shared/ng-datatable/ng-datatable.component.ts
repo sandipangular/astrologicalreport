@@ -17,6 +17,7 @@ export class NgDatatableComponent implements OnInit {
   @Input() columns:Array<ColumnsModal> = [];
   @Input() rows:Array<any> = [];
   @Input() totalRows:number=0;
+  @Input() inputDigit:Array<any>=[];
   
 
 //   @HostListener('scroll', ['$event'])
@@ -38,7 +39,8 @@ export class NgDatatableComponent implements OnInit {
 
 
   ngOnInit() {
-  //  console.log("columns", this.columns);
+    console.log("rows data", this.rows)
+    console.log("columns", this.columns);
   }
 
   onChangeShowNumber(selectedValue: number) {
