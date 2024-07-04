@@ -48,7 +48,6 @@ export class ReportsComponent implements OnInit {
   column = this.columnDataCollection;
   data = this.tabledatacollection;
   submitted: boolean = false;
-  inputValue=this.inputValueArray;
 
   constructor(
     private modalService: BsModalService,
@@ -95,7 +94,7 @@ export class ReportsComponent implements OnInit {
           console.log('API result', res);
           this.tabledatafun(res);
           this.tableColumnfunc(res);
-          this.inputValuefunction(input_digit)
+          this.inputValuefunction(input_digit);
           this.processInputForm.get('input_digit')?.reset();
         },
         (error) => {
@@ -107,7 +106,9 @@ export class ReportsComponent implements OnInit {
     }
   }
   inputValuefunction(input_digit:any){
+    debugger;
     this.inputValueArray.push(input_digit);
+    //console.log("this.inputValueArray",this.inputValueArray)
   }
 
   tableColumnfunc(res:any){
@@ -138,6 +139,7 @@ export class ReportsComponent implements OnInit {
 
 
   tabledatafun(res:any){
+    debugger;
     var getSingleArray:Array<any>=[];
     let resArray = res.all_results;
     let flattenedArray = resArray.reduce(

@@ -17,7 +17,7 @@ export class NgDatatableComponent implements OnInit {
   @Input() columns:Array<ColumnsModal> = [];
   @Input() rows:Array<any> = [];
   @Input() totalRows:number=0;
-  @Input() inputDigit:Array<any>=[];
+  @Input() inputDigit:Array<any> = [];
   
 
 //   @HostListener('scroll', ['$event'])
@@ -35,12 +35,14 @@ export class NgDatatableComponent implements OnInit {
 
   constructor(private elementRef: ElementRef, private ngZone: NgZone) {
     // this.paginationfun()
+   
   }
 
 
   ngOnInit() {
     console.log("rows data", this.rows)
     console.log("columns", this.columns);
+    console.log("inputDigit Array",this.inputDigit)
   }
 
   onChangeShowNumber(selectedValue: number) {
