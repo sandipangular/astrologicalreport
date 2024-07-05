@@ -12,7 +12,6 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getData(input_digit: string): Observable<any> {
-    debugger;
     const formData = 'input_digit'+ '=' + input_digit;
     return this.http.post(this.apiUrl, formData);
   }

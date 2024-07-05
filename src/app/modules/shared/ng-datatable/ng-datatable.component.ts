@@ -2,6 +2,8 @@ import { Component, OnInit, Injectable, Input, HostListener, ElementRef, NgZone,
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ColumnsModal } from './ng-dt.modal';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-ng-datatable',
@@ -33,13 +35,15 @@ export class NgDatatableComponent implements OnInit {
   scrollLeft: number = 0;
   getshowPageItem:any;
 
-  constructor(private elementRef: ElementRef, private ngZone: NgZone) {
+  constructor(private elementRef: ElementRef, private ngZone: NgZone,
+    private http:HttpClient
+  ) {
     // this.paginationfun()
-   
   }
 
 
   ngOnInit() {
+ 
     console.log("rows data", this.rows)
     console.log("columns", this.columns);
     console.log("inputDigit Array",this.inputDigit)

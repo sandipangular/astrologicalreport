@@ -14,7 +14,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>     
-                        <th>Input No.</th>     
+                        <!-- <th>Input No.</th>      -->
                         <ng-container *ngFor="let column of columns.slice(0, onPageScrollLoadData); let i=index">
                             <th>{{column.title}}</th>
                         </ng-container>
@@ -23,9 +23,9 @@
                 <tbody >                   
                     <ng-template ngFor let-i="index" let c="row" let-row [ngForOf]="rows | paginate: { itemsPerPage: showItemPerpage, currentPage: p }" *ngIf="rows?.length !== 0">
                         <tr>
-                            <td>
+                            <!-- <td>
                                 {{ inputDigit }}
-                            </td>
+                            </td> -->
                             <td *ngFor="let column of row.slice(0, onPageScrollLoadData)">
                                 <ng-container>
                                   {{ column.key }}

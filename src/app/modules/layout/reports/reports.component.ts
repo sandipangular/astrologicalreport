@@ -55,7 +55,9 @@ export class ReportsComponent implements OnInit {
     private http: HttpClient,
     private apiService: ApiService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.loadInitialData();
+  }
 
   ngOnInit(): void {
     this.processInputForm = this.fb.group({
@@ -91,7 +93,7 @@ export class ReportsComponent implements OnInit {
       });
       this.http.post(url, null, { headers }).subscribe(
         (res: any) => {
-          console.log('API result', res);
+         // console.log('API result', res);
           this.tabledatafun(res);
           this.tableColumnfunc(res);
           this.inputValuefunction(input_digit);
@@ -106,17 +108,13 @@ export class ReportsComponent implements OnInit {
     }
   }
   inputValuefunction(input_digit:any){
-    debugger;
     this.inputValueArray.push(input_digit);
     //console.log("this.inputValueArray",this.inputValueArray)
   }
 
   tableColumnfunc(res:any){
     let resArray = res.all_results;
-    let flattenedArray = resArray.reduce(
-      (acc: any[], val: any[]) => acc.concat(val),
-      []
-    );
+    let flattenedArray = resArray.reduce((acc: any[], val: any[]) => acc.concat(val),[]);
     for (let i = 0; i < flattenedArray.length; i++) {
       this.columnDataCollection.push({
         title: `${i + 1}`,
@@ -137,16 +135,41 @@ export class ReportsComponent implements OnInit {
     }
   }
 
-
-  tabledatafun(res:any){
-    debugger;
-    var getSingleArray:Array<any>=[];
-    let resArray = res.all_results;
-    let flattenedArray = resArray.reduce(
-      (acc: any[], val: any[]) => acc.concat(val),
-      []
-    );   
+  loadInitialData(){
+    this.http.get<any[]>('../../../../assets/configuration/static.json').subscribe(
+      data => {
+        let flattenedArray = data.reduce((acc: any[], val: any[]) => acc.concat(val),[]);
+        for (let i = 0; i < flattenedArray.length; i++) {
+          this.columnDataCollection.push({
+            title: `${i + 1}`,
+            key: flattenedArray[i],
+          });
     
+          // Add the first extra column
+          this.columnDataCollection.push({
+            title: `${i + 1}`,
+            key: 'code1', // Adjust key as needed
+          });
+    
+          // Add the second extra column
+          this.columnDataCollection.push({
+            title: `${i + 1}`,
+            key: 'code2', // Adjust key as needed
+          });
+        }
+
+        this.loadInitRowData(data)
+        
+      },
+      error => {
+        console.error('Error loading JSON data', error);
+      }
+    );
+  }
+
+  loadInitRowData(data:any){
+    var getSingleArray:Array<any>=[];
+    let flattenedArray = data.reduce((acc: any[], val: any[]) => acc.concat(val),[]);
     for (let i = 0; i < flattenedArray.length; i++) {
       getSingleArray.push({
         title: `id ${i + 1}`,
@@ -161,10 +184,38 @@ export class ReportsComponent implements OnInit {
         key:''
       });
     }
-    let flattenedArray1 = getSingleArray.reduce(
-      (acc: any[], val: any[]) => acc.concat(val),
-      []
-    );  
+    let flattenedArray1 = getSingleArray.reduce((acc: any[], val: any[]) => acc.concat(val),[]);  
+    // console.log("data signle Array", flattenedArray1);
+    this.tabledatacollection.push(flattenedArray1);
+  }
+
+  tabledatafun(res:any){
+    var getSingleArray:Array<any>=[];
+
+    let resArray = res.all_results;
+    // if (this.inputValueArray.length === 0 || this.inputValueArray === null) {
+    //   resArray = res.all_results;
+    // }
+    // else{
+    //   resArray = res.formatted_std_list;
+    // }
+
+    let flattenedArray = resArray.reduce((acc: any[], val: any[]) => acc.concat(val),[]);
+    for (let i = 0; i < flattenedArray.length; i++) {
+      getSingleArray.push({
+        title: `id ${i + 1}`,
+        key:flattenedArray[i]
+      });
+      getSingleArray.push({
+        title: `id ${i + 2}`,
+        key:''
+      });
+      getSingleArray.push({
+        title: `id ${i + 3}`,
+        key:''
+      });
+    }
+    let flattenedArray1 = getSingleArray.reduce((acc: any[], val: any[]) => acc.concat(val),[]);  
     // console.log("data signle Array", flattenedArray1);
     this.tabledatacollection.push(flattenedArray1);
   }
