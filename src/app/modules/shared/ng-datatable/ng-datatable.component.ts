@@ -21,6 +21,7 @@ export class NgDatatableComponent implements OnInit {
   @Input() totalRows:number=0;
   @Input() inputDigit:Array<any> = [];
   
+  newRowsData:any;
 
 //   @HostListener('scroll', ['$event'])
 //   @ViewChild('scrollableDiv') scrollableDiv: ElementRef | undefined; 
@@ -36,18 +37,54 @@ export class NgDatatableComponent implements OnInit {
   getshowPageItem:any;
 
   constructor(private elementRef: ElementRef, private ngZone: NgZone,
-    private http:HttpClient
+    private http:HttpClient,
   ) {
-    // this.paginationfun()
+    // this.paginationfun();
   }
 
 
-  ngOnInit() {
- 
-    console.log("rows data", this.rows)
-    console.log("columns", this.columns);
-    console.log("inputDigit Array",this.inputDigit)
+  ngOnInit() { 
+   //console.log("columns", this.rows);
+    //console.log("inputDigit Array",this.inputDigit);
+  //  this.formattedData(this.rows)
   }
+  // formattedData(rows:any){
+  //   let updatedArray:any
+  //   const [number,text] = rows.forEach((element:any,index:number) => { element[index].split('-')
+  //     updatedArray.push({
+  //       title: `id ${index}`,
+  //       key:text
+  //     });
+  //   });
+  //   return updatedArray
+  // } 
+
+
+  
+
+  // reformatedData(flattenedArray:any){
+  //   debugger;
+  //   console.log("getSingleArray this.rows",this.rows)
+  //   console.log("getSingleArray",flattenedArray)
+  //   // var getSingleArray:any
+  //   // for (let i = 0; i < flattenedArray.length; i++) {
+  //   //   const [numbers, text] = flattenedArray[i].split('-'); 
+  //   //   getSingleArray.push({
+  //   //     title: `id ${i + 1}`,
+  //   //     key:numbers
+  //   //   });
+  //   //   getSingleArray.push({
+  //   //     title: `id ${i + 2}`,
+  //   //     key:''
+  //   //   });
+  //   //   getSingleArray.push({
+  //   //     title: `id ${i + 3}`,
+  //   //     key:''
+  //   //   });
+  //   // }
+
+  //   // console.log("getSingleArray",getSingleArray)
+  // }
 
   onChangeShowNumber(selectedValue: number) {
     this.showItemPerpage=selectedValue;
